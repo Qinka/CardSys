@@ -2,6 +2,7 @@
 #include "Card.h"
 #include "Burn.h"
 #include "Picker.h"
+#include "Holder.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 using namespace std;
@@ -14,6 +15,7 @@ CCard::CCard(std::string id)
 	balance = *(int*)(data[1]);
 	freetimes = *(int*)(data[2]);
 	strcpy(name, (char*)data[3]);
+	holder = cardid.substr(0, cardid.find('.'));
 }
 
 bool CCard::pay()
@@ -26,22 +28,39 @@ bool CCard::pay()
 		{
 			--freetimes;
 			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else if (freetimes == 1)
 		{
 			--freetimes;
 			cout << "最后一次免费，下次收费" << endl;
+			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else if (balance >5)
 		{
 			balance -= 2;
 			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else if (balance > 2)
 		{
 			balance -= 2;
 			cout << "请充值" << endl;
 			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else
 		{
@@ -56,12 +75,20 @@ bool CCard::pay()
 		{
 			balance -= 2;
 			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else if (balance > 2)
 		{
 			balance -= 2;
 			cout << "请充值" << endl;
 			display();
+			{
+				auto h = CHolder(holder);
+				h.pay();
+			}
 		}
 		else
 		{
@@ -74,6 +101,10 @@ bool CCard::pay()
 	case 't':
 		this->buring();
 		display();
+		{
+			auto h = CHolder(holder);
+			h.pay();
+		}
 		return x;
 		break;
 	default:
@@ -92,7 +123,7 @@ void CCard::display()
 	cout << "欢迎乘车" << endl;
 	cout << "欢迎 " << name << endl;
 	cout << "卡内余额：" << balance << endl;
-	if (type == 't')
+	if (type == 'l')
 		cout << "剩余次数：" << freetimes << endl;
 }
 
@@ -121,4 +152,10 @@ CCard::CCard(std::string c, char t, int b , int f, std::string n)
 	balance = b;
 	freetimes = f;
 	strcpy(name, n.c_str());
+	holder = cardid.substr(0, cardid.find('.'));
+}
+
+std::string CCard::getHolder() const
+{
+	return holder;
 }

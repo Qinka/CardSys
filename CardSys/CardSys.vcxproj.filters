@@ -39,6 +39,15 @@
     <ClInclude Include="TimeTable.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Holder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CardOpt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Stop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +69,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TimeTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Holder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CardOpt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Stop.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

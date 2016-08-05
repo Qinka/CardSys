@@ -1,0 +1,91 @@
+
+
+
+
+
+% report.tex
+
+\documentclass{ctexart}
+
+\author{李约瀚//14130140331//qinka@live.com}
+\title{2016年西安电子科技大学软件学院面向对象程序设计课程上机报告}
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    
+    \section{设计说明}
+    CardSys 一共包含 \textbf{CBurn} , \textbf{CCar} , \textbf{CCard} , \textbf{CCardOpt} ,   \textbf{CHolder} , \textbf{CPicker} , \textbf{CStop} 与 \textbf{CTimeTable}\footnote{该类由于最后一次的需求的添加，而被废除。}。类采用接口与实现分隔的方式组织源代码。
+    \subsection{CBurn 静态类}
+    这个类是 负责将数据写入文件的类，是个静态类。其中只有一个静态函数
+     CBurn::brunIt(char*,size\_t,size\_t*,size\_t,std::string)。
+    接受的参数依次是写入的数据的首地址，写入的数据大小，分割数据的数据及其大小。
+    \subsection{CCar 类}
+    这个类是汽车的类，定义了所需的相关内容。
+    \subsubsection{关键数据成员}
+    类中的关键数据成员有如下：
+    \paragraph{protected: std::string \_plate} 这个类是指明汽车的牌照的。
+    \paragraph{protected: std::string \_type} 这个类是指明汽车的类型。
+    \paragraph{protected: int \_max} 这个变量是指明汽车的最大容量。
+    \paragraph{protected: std::vector<cmap> \_now} 这个是指明当前的到达那一站的的
+    \footnote{出现在第五次需求之后。}
+    \footnote{cmap 由元组定义，需要 C++/CX 中 C++ 11 的支持。其中 C++/CX 是 微软的一种对 C++ 的扩展，但目前可以使用 clang 编译。}。
+    \paragraph{protected: std::string \_driver} 指明开车的哪位老司机。
+    \paragraph{protected: CStop \_time\_table} 时刻表与车站
+    \footnote{出现于第五次需求之后。}
+    \footnote{旧版本的定义为: protected: CTimeTable \_time\_table 。}。
+    \subsubsection{关键成员函数}
+    \paragraph{public: bool AddMan(std::string,string::stop)}
+    是刷卡上车的函数
+    \footnote{参与刷卡上车的函数。刷卡上车是有几个 API 共同协同完成。}。
+    参数依次是刷卡的卡号与上车的站点
+    \footnote{出现于第五次需求之后，之前的需求并未有该参数。}。
+    返回值与是否可以上车是有关系的。并且传递给其他调用这个函数的函数。没有采用回调的
+    方式。
+    \paragraph{public: void in(std::string)}
+    这个函数是负责进站的函数，即汽车进站时需要调用该函数。
+    其中参数是汽车进站的时间。
+    \paragraph{public: void go(std::string)}
+    这个函数是负责汽车出站的，即汽车出站时需要调用该函数。
+    其中参数是汽车出站的时间。
+    \paragraph{public: void ar(std::string)}
+    这个函数是汽车到站时的函数，即汽车到达终点站是需要调用的函数
+    \footnote{这个函数在第五次需求之后，处于“即将废除”状态，也就是说这个函数没有用了。}
+    。其中参数是汽车到站的时间。
+    \subsection{CCard 类}
+    这个类是描述 一卡通的类的。定义了一卡通的卡号，持卡人，一卡通种类及相关信息。同时提供了刷卡的一卡通部分的接口。
+    \subsubsection{关键数据成员}
+    \paragraph{private: char name[64]}
+    指明持卡人的姓名是什么。
+    \paragraph{private: std::string cardid}
+    指明此一卡通的 id 是什么。
+    \paragraph{private: std::string holder}
+    指明此一卡通的持有者是谁\footnote{此处是指代的持有者的编号。}。
+    \paragraph{private: char type}
+    指明此一卡通是下列那种类型。
+    \begin{flushleft}
+        \begin{tabular}{|c|c|}
+            \hline 一卡通类型 & $type$类型 \\ 
+            \hline 学生 & $'s'$ \\ 
+            \hline 老师 & $'t'$ \\ 
+            \hline 限制卡 & $'l'$ \\ 
+            \hline 
+        \end{tabular} 
+    \end{flushleft}
+    \paragraph{private: int balance}
+    指明此一卡通的余额。
+    \paragraph{private: int freetimes}
+    指明此一卡通剩余的免费次数。
+    \subsubsection{关键函数成员}
+    \paragraph{public: bool pay()}
+    负责支付的函数，与其他支付函数一起负责刷卡上车，并负责扣款。
+    \subsection{CCardOpt 静态类}
+    该类是负责处理一卡通部分的增删部分。
+    同时还定义了 函数的拼接操作符。
+    \footnote{该部分使用到了 C++/CX 中 函数式范式编程的内容，需要使用 C++11 及以上的标准。}
+    \subsection{CHolder 类}
+    这个类型是持卡人的类，描述了持卡人的一些中要信息。
+    
+\end{document}

@@ -1,6 +1,11 @@
 #pragma once
+#include<tuple>
 #include <string>
-#include "TimeTable.h"
+#include "Stop.h"
+
+
+typedef std::tuple<std::string, std::string> cmap;
+
 class CCar
 {
 public:
@@ -13,20 +18,21 @@ public:
 	int GetNow() const;
 	std::string GetDriver() const;
 	std::string GetWhen() const;
-	bool AddAMan(std::string id);
+	bool AddAMan(std::string id,std::string stop);
 	std::string GetTimeTable() const;
 	void burning();
 	void in(std::string);
 	void go(std::string);
 	void ar(std::string);
+	int Check();
 protected:
 	std::string _plate;
 	std::string _type;
 	int _max;
-	int _now;
+	std::vector<cmap> _now;
 	std::string _driver;
 	std::string _when;
-	CTimeTable _time_table;
+	CStop _time_table;
 	std::string _time_table_name;
 };
 

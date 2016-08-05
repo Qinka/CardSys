@@ -23,12 +23,20 @@ CPicker::CPicker(std::string filename)
 	_ptrForPtrs = new size_t[_sizeOfPtr];
 	read.read((char*)(_ptrForPtrs), sizeof(size_t)*_sizeOfPtr); // Æ½Ì¨ÒÀÀµ
 	buf = new char[_bufsize];
-	read.read(buf, _bufsize);
+	auto x = _bufsize;
+	auto buftmp = buf;
+	while (x > 0)
+	{
+		read.read(buftmp, 1);
+		--x;
+		buftmp++;
+	}
 	read.close();
 }
 
 CPicker::~CPicker()
 {
+	delete[] _ptrForPtrs;
 	delete[] buf;
 }
 
